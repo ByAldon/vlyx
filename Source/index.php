@@ -1,17 +1,30 @@
 <?php
 session_start();
-if (isset($_GET['logout'])) { session_destroy(); header("Location: login.php"); exit; }
-if (!isset($_SESSION['user'])) { header("Location: login.php"); exit; }
+
+// --- AUTO INSTALLER & DIRECTORY CHECK ---
+if (!is_dir('users')) { mkdir('users', 0777, true); }
+if (!file_exists('users.json')) { file_put_contents('users.json', json_encode([])); }
+if (!file_exists('tokens.json')) { file_put_contents('tokens.json', json_encode([])); }
 
 $usersFile = 'users.json';
 $userData = json_decode(file_get_contents($usersFile), true) ?: [];
+
+// If no users exist, redirect to setup (admin.php)
+if (empty($userData)) {
+    header("Location: admin.php");
+    exit;
+}
+
+if (isset($_GET['logout'])) { session_destroy(); header("Location: login.php"); exit; }
+if (!isset($_SESSION['user'])) { header("Location: login.php"); exit; }
+
 $user = $_SESSION['user'];
 $role = $_SESSION['role'] ?? 'user';
 $userLinksFile = "users/" . $user . ".json";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['add_link'])) {
-        $links = json_decode(file_get_contents($userLinksFile), true) ?: [];
+        $links = file_exists($userLinksFile) ? json_decode(file_get_contents($userLinksFile), true) : [];
         $links[] = ['name' => $_POST['name'], 'url' => $_POST['url']];
         file_put_contents($userLinksFile, json_encode($links));
     } elseif (isset($_POST['delete_link'])) {
@@ -21,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (isset($_POST['update_profile'])) {
         $newName = trim($_POST['new_username']);
         if ($newName !== $user) {
-            if (!is_dir('users')) mkdir('users', 0777, true);
             if (file_exists($userLinksFile)) rename($userLinksFile, "users/$newName.json");
             $userData[$newName] = $userData[$user]; unset($userData[$user]);
             $_SESSION['user'] = $newName;
@@ -34,13 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     header("Location: index.php"); exit;
 }
-$links = json_decode(file_get_contents($userLinksFile), true) ?: [];
+$links = file_exists($userLinksFile) ? json_decode(file_get_contents($userLinksFile), true) : [];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?= htmlspecialchars($_SESSION['user']) ?>'s Vlyx Hub</title>
+    <title>Vlyx Hub - <?= htmlspecialchars($_SESSION['user']) ?></title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M30 50 L55 5 L55 45 L80 45 L45 95 L45 55 Z' fill='%2300ddff'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -79,7 +91,7 @@ $links = json_decode(file_get_contents($userLinksFile), true) ?: [];
         <?php foreach ($links as $index => $link): ?>
             <div class="bookmark-wrapper">
                 <form method="POST"><input type="hidden" name="index" value="<?= $index ?>">
-                    <button type="submit" name="delete_link" class="del-btn" onclick="return confirm('Remove link?')"><i class="fa-solid fa-trash-can"></i></button>
+                    <button type="submit" name="delete_link" class="del-btn" onclick="return confirm('Remove?')"><i class="fa-solid fa-trash-can"></i></button>
                 </form>
                 <a href="<?= htmlspecialchars($link['url']) ?>" style="text-decoration:none; color:inherit;" target="_blank">
                     <div class="icon-box"><img src="https://www.google.com/s2/favicons?sz=64&domain=<?= parse_url($link['url'], PHP_URL_HOST) ?>" alt=""></div>
@@ -138,7 +150,6 @@ $links = json_decode(file_get_contents($userLinksFile), true) ?: [];
     <script>
         function openModal(id) { document.getElementById(id).style.display = 'block'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        window.onclick = function(e) { if (e.target.className === 'modal-overlay') e.target.style.display = 'none'; }
     </script>
 </body>
 </html>

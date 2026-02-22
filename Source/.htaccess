@@ -1,12 +1,5 @@
-# ⚡ Vlyx Environment Protection
-
-# Disable directory listing
+# ⚡ Vlyx Security Shield
 Options -Indexes
-
-# Deny direct access to JSON data files
 <Files "*.json">
     Require all denied
 </Files>
-
-# Ensure PHP execution
-DirectoryIndex index.php
