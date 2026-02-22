@@ -1,53 +1,37 @@
 <?php
-$tokensFile = 'tokens.json';
-$usersFile = 'users.json';
 $token = $_GET['token'] ?? '';
-$tokens = file_exists($tokensFile) ? json_decode(file_get_contents($tokensFile), true) : [];
-
-if (!isset($tokens[$token]) || $tokens[$token]['expires'] < time()) {
-    die("Invalid or expired token. Please request a new reset link.");
-}
+$tokens = json_decode(file_get_contents('tokens.json'), true) ?: [];
+if (!isset($tokens[$token]) || $tokens[$token]['expires'] < time()) { die("Invalid or expired token."); }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $newPass = $_POST['password'];
-    $username = $tokens[$token]['user'];
-    $userData = json_decode(file_get_contents($usersFile), true);
-
-    // Update password
-    $userData[$username]['password'] = password_hash($newPass, PASSWORD_DEFAULT);
-    file_put_contents($usersFile, json_encode($userData, JSON_PRETTY_PRINT));
-
-    // Remove used token
+    $users = json_decode(file_get_contents('users.json'), true);
+    $user = $tokens[$token]['user'];
+    $users[$user]['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    file_put_contents('users.json', json_encode($users, JSON_PRETTY_PRINT));
     unset($tokens[$token]);
-    file_put_contents($tokensFile, json_encode($tokens, JSON_PRETTY_PRINT));
-
-    $success = "Password reset successful! You can now log in.";
+    file_put_contents('tokens.json', json_encode($tokens));
+    header("Location: login.php?success=1"); exit;
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>New Password - My Space</title>
+    <meta charset="UTF-8"><title>Update Password - Vlyx</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body { background: #2b2a33; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .box { background: #42414d; padding: 40px; border-radius: 15px; width: 340px; text-align: center; }
-        input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 6px; border: none; background: #2b2a33; color: white; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #00ddff; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; color: #2b2a33; }
+        body { background: #1e1e26; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: #2b2a33; padding: 40px; border-radius: 20px; width: 340px; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 8px; border: none; background: #1e1e26; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #00ddff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: #1e1e26; }
     </style>
 </head>
 <body>
     <div class="box">
-        <h2>Set New Password</h2>
-        <?php if(isset($success)): ?>
-            <p style="color:#00ff00;"><?= $success ?></p>
-            <a href="login.php" style="color:#00ddff; text-decoration:none;">Go to Login</a>
-        <?php else: ?>
-            <form method="POST">
-                <input type="password" name="password" placeholder="New Password" required minlength="6">
-                <button type="submit">Update Password</button>
-            </form>
-        <?php endif; ?>
+        <h2>New Password</h2>
+        <form method="POST">
+            <input type="password" name="password" placeholder="Enter new password" required>
+            <button type="submit">Update Password</button>
+        </form>
     </div>
 </body>
 </html>

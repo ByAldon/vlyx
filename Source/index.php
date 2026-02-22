@@ -1,59 +1,85 @@
 <?php
 session_start();
+if (isset($_GET['logout'])) { session_destroy(); header("Location: login.php"); exit; }
 if (!isset($_SESSION['user'])) { header("Location: login.php"); exit; }
+
+$usersFile = 'users.json';
+$userData = json_decode(file_get_contents($usersFile), true) ?: [];
 $user = $_SESSION['user'];
 $role = $_SESSION['role'] ?? 'user';
-$file = "users/" . $user . ".json";
-
-if (!is_dir('users')) { mkdir('users', 0777, true); }
-if (!file_exists($file)) { file_put_contents($file, json_encode([])); }
-$links = json_decode(file_get_contents($file), true);
+$userLinksFile = "users/" . $user . ".json";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['add'])) { 
-        $links[] = ['name' => $_POST['name'], 'url' => $_POST['url']]; 
-    } elseif (isset($_POST['delete_link'])) { 
-        array_splice($links, (int)$_POST['index'], 1); 
+    if (isset($_POST['add_link'])) {
+        $links = json_decode(file_get_contents($userLinksFile), true) ?: [];
+        $links[] = ['name' => $_POST['name'], 'url' => $_POST['url']];
+        file_put_contents($userLinksFile, json_encode($links));
+    } elseif (isset($_POST['delete_link'])) {
+        $links = json_decode(file_get_contents($userLinksFile), true);
+        array_splice($links, (int)$_POST['index'], 1);
+        file_put_contents($userLinksFile, json_encode($links));
+    } elseif (isset($_POST['update_profile'])) {
+        $newName = trim($_POST['new_username']);
+        if ($newName !== $user) {
+            if (!is_dir('users')) mkdir('users', 0777, true);
+            if (file_exists($userLinksFile)) rename($userLinksFile, "users/$newName.json");
+            $userData[$newName] = $userData[$user]; unset($userData[$user]);
+            $_SESSION['user'] = $newName;
+        }
+        $userData[$_SESSION['user']]['email'] = trim($_POST['email']);
+        if (!empty($_POST['password'])) {
+            $userData[$_SESSION['user']]['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        }
+        file_put_contents($usersFile, json_encode($userData, JSON_PRETTY_PRINT));
     }
-    file_put_contents($file, json_encode($links));
     header("Location: index.php"); exit;
 }
-if (isset($_GET['logout'])) { session_destroy(); header("Location: login.php"); exit; }
+$links = json_decode(file_get_contents($userLinksFile), true) ?: [];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?= htmlspecialchars($user) ?>'s Vlyx</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>?</text></svg>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title><?= htmlspecialchars($_SESSION['user']) ?>'s Vlyx Hub</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M30 50 L55 5 L55 45 L80 45 L45 95 L45 55 Z' fill='%2300ddff'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root { --bg: #2b2a33; --card: #42414d; --accent: #00ddff; --text: #fbfbfe; }
-        body { background: var(--bg); color: var(--text); font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 50px 20px; margin: 0; min-height: 100vh; }
-        .logo { font-size: 2.5rem; margin-bottom: 50px; font-weight: bold; display: flex; align-items: center; }
-        .logo i { color: var(--accent); margin-right: 15px; }
-        .logo span { color: #aaa; font-weight: normal; margin-right: 10px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 25px; width: 100%; max-width: 900px; }
-        .bookmark-wrapper { position: relative; text-align: center; background: var(--card); padding: 20px; border-radius: 18px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
-        .bookmark-wrapper:hover { transform: translateY(-5px); background: #4e4d5a; }
-        .icon-box { width: 55px; height: 55px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2); border-radius: 12px; }
-        .icon-box img { width: 32px; height: 32px; object-fit: contain; }
-        .del-btn { position: absolute; top: 10px; right: 10px; background: none; border: none; color: #ff4444; cursor: pointer; opacity: 0.4; transition: 0.2s; }
-        .del-btn:hover { opacity: 1; }
-        .admin-bar { position: fixed; bottom: 0; width: 100%; background: #1a1a20; padding: 15px; text-align: center; border-top: 2px solid var(--accent); box-sizing: border-box; }
-        input { padding: 12px; border-radius: 8px; border: none; background: #2b2a33; color: white; margin-right: 10px; width: 200px; }
-        button.add { background: var(--accent); border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; color: #2b2a33; }
-        .nav-link { color: var(--accent); text-decoration: none; font-weight: bold; margin-left: 20px; font-size: 0.9rem; }
+        :root { --bg: #1e1e26; --card: #2b2a33; --accent: #00ddff; --text: #fbfbfe; --dark-bar: #121217; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; min-height: 100vh; }
+        .logo-container { display: flex; align-items: center; margin: 60px 0; }
+        .brand-logo { font-size: 3.5rem; color: var(--accent); margin-right: 20px; }
+        .brand-text { font-size: 2.8rem; font-weight: bold; }
+        .brand-text span { color: #888; font-weight: 300; margin-right: 12px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 30px; width: 100%; max-width: 1000px; padding-bottom: 140px; }
+        .bookmark-wrapper { position: relative; text-align: center; background: var(--card); padding: 25px; border-radius: 22px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: 0.3s; }
+        .bookmark-wrapper:hover { transform: translateY(-8px); }
+        .icon-box { width: 60px; height: 60px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.25); border-radius: 15px; }
+        .icon-box img { width: 36px; height: 36px; object-fit: contain; }
+        .del-btn { position: absolute; top: 12px; right: 12px; background: none; border: none; color: #ff4444; cursor: pointer; opacity: 0.3; }
+        .btn-action { background: var(--accent); color: #1e1e26; font-weight: 800; border: none; padding: 14px; border-radius: 12px; cursor: pointer; width: 100%; font-size: 1rem; text-transform: uppercase; transition: 0.3s; box-shadow: 0 4px 15px rgba(0, 221, 255, 0.3); }
+        .btn-action:hover { background: #00b8d4; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 221, 255, 0.5); }
+        .admin-bar { position: fixed; bottom: 0; width: 100%; background: var(--dark-bar); border-top: 1px solid rgba(0, 221, 255, 0.3); z-index: 100; padding: 12px 30px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; }
+        .admin-form { display: flex; align-items: center; gap: 12px; }
+        input { padding: 10px 15px; border-radius: 8px; border: 1px solid #333; background: #1e1e26; color: white; }
+        .add-btn-small { background: var(--accent); border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; color: #1e1e26; }
+        .nav-link { color: var(--accent); text-decoration: none; font-weight: bold; margin-left: 20px; cursor: pointer; font-size: 0.9rem; }
+        .bar-footer { color: #444; font-size: 0.75rem; font-weight: bold; }
+        .modal-overlay { display: none; position: fixed; z-index: 200; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); }
+        .modal-content { background: var(--card); margin: 8vh auto; padding: 40px; border-radius: 25px; width: 90%; max-width: 550px; border: 1px solid rgba(0, 221, 255, 0.4); position: relative; animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close-modal { position: absolute; top: 20px; right: 25px; font-size: 1.5rem; color: #666; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="logo"><i class="fas fa-bolt-lightning"></i><span><?= htmlspecialchars($user) ?>'s</span> Vlyx</div>
+    <div class="logo-container">
+        <div class="brand-logo"><i class="fa-solid fa-bolt-lightning"></i></div>
+        <div class="brand-text"><span><?= htmlspecialchars($_SESSION['user']) ?>'s</span> Vlyx</div>
+    </div>
     <div class="grid">
         <?php foreach ($links as $index => $link): ?>
             <div class="bookmark-wrapper">
-                <form method="POST">
-                    <input type="hidden" name="index" value="<?= $index ?>">
-                    <button type="submit" name="delete_link" class="del-btn" onclick="return confirm('Delete link?')"><i class="fas fa-trash-can"></i></button>
+                <form method="POST"><input type="hidden" name="index" value="<?= $index ?>">
+                    <button type="submit" name="delete_link" class="del-btn" onclick="return confirm('Remove link?')"><i class="fa-solid fa-trash-can"></i></button>
                 </form>
                 <a href="<?= htmlspecialchars($link['url']) ?>" style="text-decoration:none; color:inherit;" target="_blank">
                     <div class="icon-box"><img src="https://www.google.com/s2/favicons?sz=64&domain=<?= parse_url($link['url'], PHP_URL_HOST) ?>" alt=""></div>
@@ -62,15 +88,57 @@ if (isset($_GET['logout'])) { session_destroy(); header("Location: login.php"); 
             </div>
         <?php endforeach; ?>
     </div>
-    <div class="admin-bar">
-        <form method="POST">
-            <input type="text" name="name" placeholder="Site Name" required>
-            <input type="url" name="url" placeholder="https://..." required>
-            <button type="submit" name="add" class="add">Add to Vlyx</button>
-            <a href="profile.php" class="nav-link"><i class="fas fa-user-gear"></i> Settings</a>
-            <?php if ($role === 'admin'): ?><a href="admin.php" class="nav-link"><i class="fas fa-shield-halved"></i> Admin</a><?php endif; ?>
-            <a href="?logout" class="nav-link" style="color:#888;"><i class="fas fa-power-off"></i></a>
-        </form>
+    <div id="settingsModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('settingsModal')">&times;</span>
+            <h2 style="margin-top:0;"><i class="fa-solid fa-user-gear" style="color:var(--accent); margin-right:10px;"></i> Settings</h2>
+            <form method="POST">
+                <input type="text" name="new_username" value="<?= htmlspecialchars($_SESSION['user']) ?>" required style="width:100%; margin:8px 0 15px;" placeholder="Display Name">
+                <input type="email" name="email" value="<?= htmlspecialchars($userData[$_SESSION['user']]['email'] ?? '') ?>" style="width:100%; margin:8px 0 15px;" placeholder="Email Address">
+                <input type="password" name="password" placeholder="New Password (Optional)" style="width:100%; margin:8px 0 25px;">
+                <button type="submit" name="update_profile" class="btn-action">Save Changes</button>
+            </form>
+        </div>
     </div>
+    <?php if ($role === 'admin'): ?>
+    <div id="adminModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('adminModal')">&times;</span>
+            <h2 style="margin-top:0;"><i class="fa-solid fa-shield-halved" style="color:var(--accent); margin-right:10px;"></i> User Management</h2>
+            <div style="margin-top:20px;">
+                <?php foreach($userData as $name => $info): ?>
+                    <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #333; align-items:center;">
+                        <span style="font-weight:bold;"><?= htmlspecialchars($name) ?></span>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <span style="background:rgba(0,221,255,0.1); color:var(--accent); padding:2px 8px; border-radius:5px; font-size:0.8rem;"><?= htmlspecialchars($info['role'] ?? 'user') ?></span>
+                            <a href="admin.php?edit=<?= urlencode($name) ?>" style="color:var(--accent);"><i class="fa-solid fa-user-pen"></i></a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <a href="admin.php" style="display:block; text-align:center; margin-top:20px; color:var(--accent); text-decoration:none; font-weight:bold;">Open Admin Panel</a>
+        </div>
+    </div>
+    <?php endif; ?>
+    <div class="admin-bar">
+        <div class="admin-form">
+            <form method="POST" style="display:flex; gap:10px;">
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="url" name="url" placeholder="URL" required>
+                <button type="submit" name="add_link" class="add-btn-small">Add Link</button>
+            </form>
+            <span class="nav-link" onclick="openModal('settingsModal')"><i class="fa-solid fa-user-gear"></i> Settings</span>
+            <?php if ($role === 'admin'): ?>
+                <span class="nav-link" onclick="openModal('adminModal')"><i class="fa-solid fa-shield-halved"></i> Admin</span>
+            <?php endif; ?>
+            <a href="?logout=1" class="nav-link" style="color:#666;"><i class="fa-solid fa-power-off"></i></a>
+        </div>
+        <div class="bar-footer">Vlyx by Aldon &bull; 2026 &bull; <a href="https://github.com/ByAldon/vlyx" target="_blank" style="color:#555; text-decoration:none;">GitHub</a></div>
+    </div>
+    <script>
+        function openModal(id) { document.getElementById(id).style.display = 'block'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        window.onclick = function(e) { if (e.target.className === 'modal-overlay') e.target.style.display = 'none'; }
+    </script>
 </body>
 </html>

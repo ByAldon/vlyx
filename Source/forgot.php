@@ -1,45 +1,40 @@
 <?php
-session_start();
-$usersFile = 'users.json';
-$tokensFile = 'tokens.json';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
-    $userData = json_decode(file_get_contents($usersFile), true);
-    $foundUser = null;
-
-    foreach ($userData as $username => $info) {
+    $users = json_decode(file_get_contents('users.json'), true) ?: [];
+    foreach($users as $user => $info) {
         if (isset($info['email']) && strtolower($info['email']) === strtolower($email)) {
-            $foundUser = $username;
-            break;
+            $token = bin2hex(random_bytes(32));
+            $tokens = json_decode(file_get_contents('tokens.json'), true) ?: [];
+            $tokens[$token] = ['user' => $user, 'expires' => time() + 3600];
+            file_put_contents('tokens.json', json_encode($tokens));
+            $msg = "Recovery link: reset.php?token=$token"; // For development display
         }
-    }
-
-    if ($foundUser) {
-        $token = bin2hex(random_bytes(20));
-        $expiry = time() + 3600;
-
-        $tokens = file_exists($tokensFile) ? json_decode(file_get_contents($tokensFile), true) : [];
-        $tokens[$token] = ['user' => $foundUser, 'expires' => $expiry];
-        file_put_contents($tokensFile, json_encode($tokens, JSON_PRETTY_PRINT));
-
-        // AFZENDER GEFIXEERD OP life42.nl
-        $resetLink = "https://life42.nl/bookmarks/reset.php?token=" . $token;
-        $subject = "Password Reset - My Space";
-        $message = "Hello " . htmlspecialchars($foundUser) . ",\r\n\r\nClick here to reset your password:\r\n" . $resetLink;
-        
-        // Header handmatig ingesteld
-        $headers = "From: no-reply@life42.nl" . "\r\n" .
-                   "Reply-To: no-reply@life42.nl" . "\r\n" .
-                   "X-Mailer: PHP/" . phpversion();
-
-        if (mail($email, $subject, $message, $headers)) {
-            $status = "Reset link sent! Please check your inbox.";
-        } else {
-            $error = "Email failed to send. Check server mail settings.";
-        }
-    } else {
-        $error = "Email not found in our system.";
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><title>Reset Password - Vlyx</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { background: #1e1e26; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: #2b2a33; padding: 40px; border-radius: 20px; width: 340px; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 8px; border: none; background: #1e1e26; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #00ddff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: #1e1e26; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <i class="fa-solid fa-key" style="font-size:3rem; color:#00ddff; margin-bottom:20px;"></i>
+        <h2>Reset Access</h2>
+        <form method="POST">
+            <input type="email" name="email" placeholder="Enter account email" required>
+            <button type="submit">Send Reset Link</button>
+        </form>
+        <?php if(isset($msg)) echo "<p style='color:#00ddff; font-size:0.8rem; margin-top:20px;'>$msg</p>"; ?>
+        <a href="login.php" style="color:#666; display:block; margin-top:20px; text-decoration:none;">Back to Login</a>
+    </div>
+</body>
+</html>
