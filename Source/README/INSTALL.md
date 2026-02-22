@@ -1,7 +1,17 @@
-# Vlyx Installation Guide
+# Vlyx Installation & Guided Setup (v1.1.0)
 
-1. Upload all files to your web server.
-2. Create a folder named `users/` in the root directory.
-3. Grant Write Permissions (CHMOD 777) to the `users/` folder.
-4. Access `admin.php` to create your first Administrator account.
-5. Log in through the portal.
+Installing Vlyx is now simpler than ever. The system handles the file creation for you.
+
+## 🚀 Steps
+1. **Upload**: Move all files to your web server.
+2. **Launch**: Open your site URL in a browser.
+3. **Wizard**: Follow the **Guided Setup Wizard** to initialize the system.
+4. **Login**: Authenticate manually to confirm your admin credentials.
+
+## ⚙️ Requirements
+- PHP 8.1+
+- Apache Web Server (for `.htaccess` protection)
+- Read/Write permissions on the root directory.
+
+---
+Vlyx Hub • v1.1.0 • Built by **Aldon** • 2026

@@ -1,11 +1,17 @@
-# ⚡ Vlyx - Personal Bookmark Hub
+# ⚡ Vlyx Hub - v1.1.1
 
-A modern, single-page dashboard designed to manage your favorite links.
+A modern, privacy-focused bookmark dashboard.
 
-## ✨ Features
-* Sublime dark-mode design.
-* Interactive modals for settings and admin.
-* Compact bottom management bar.
-* Built with PHP 8 and JSON storage.
+## ✨ Features (v1.1.1)
+* **Guided Setup**: Automated wizard for first-time installation.
+* **Optional Privacy**: Register with or without an email address.
+* **Compact Management**: Full control from the bottom bar.
+* **Security**: Manual login required after setup to ensure data integrity.
 
-Built by **Aldon** &bull; 2026
+## 🚀 Installation
+1. Upload all files to your server.
+2. Launch the site and follow the **Wizard**.
+3. No manual database setup required!
+
+---
+Built by **Aldon** • 2026 • [GitHub](https://github.com/ByAldon/vlyx)

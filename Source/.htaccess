@@ -1,4 +1,4 @@
-# ⚡ Vlyx Security Shield
+# ⚡ Vlyx Environment Security
 Options -Indexes
 <Files "*.json">
     Require all denied
