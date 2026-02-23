@@ -11,26 +11,23 @@
 
 ---
 
-## ✨ Features
+## ✨ New in v1.1.5
 
-* **⚡ Sublime Interface**: A modern, responsive dark-mode UI with vibrant accents.
-* **🛠️ Guided Setup**: A foolproof, step-by-step installation wizard for first-time users.
-* **📂 Multi-User Support**: Each user gets their own personal space and link grid.
-* **🚀 Update Checker**: Real-time notifications when a new version is available on GitHub.
-* **🔒 Security**: Built-in password hashing and protected data directories via `.htaccess`.
-* **📱 Compact Control**: Manage everything from a minimalist bar at the bottom of your screen.
+* **Auto Update Checker**: Automatically alerts users if a new version is available on GitHub.
+* **Silent Mode**: Update notifications are non-intrusive and do not block system usage.
+* **Foolproof Setup**: The first user is automatically granted Administrator rights during initialization.
 
 ---
 
 ## 📸 Preview
 
-| Login Portal | Main Dashboard | Settings Modal |
+| Login Portal | Main Dashboard | User Settings |
 | :--- | :--- | :--- |
-| ![Login](Demo/Login.png) | ![Dashboard](Demo/Dashboard.png) | ![Settings](Demo/Settings.png) |
+| ![Login](Demo/Login.jpg) | ![Dashboard](Demo/The%20Hub.jpg) | ![Settings](Demo/User%20Settings.jpg) |
 
-| Setup Wizard | User Management | Recovery |
+| Setup Wizard | User Management | Registration |
 | :--- | :--- | :--- |
-| ![Setup](Demo/Admin%20Management.png) | ![Management](Demo/User%20Management.png) | ![Forgot](Demo/Forgot%20Password.png) |
+| ![Setup](Demo/Welcome%20to%20Vlyx.jpg) | ![Management](Demo/User%20Management.jpg) | ![Register](Demo/Register%20User.jpg) |
 
 ---
 
@@ -38,17 +35,17 @@
 
 Installing Vlyx is incredibly simple:
 
-1.  **Download**: Upload the files to your PHP-enabled web server.
-2.  **Permissions**: Ensure the root folder is writable so the system can create the necessary files.
-3.  **Run**: Navigate to your site. The **Auto-Installer** will guide you through creating your first Admin account.
-4.  **Login**: Enter your credentials and start adding links!
+1.  **Download**: Upload the source files to your PHP-enabled web server.
+2.  **Permissions**: Ensure the root folder is writable so the system can generate the necessary files.
+3.  **Launch**: Navigate to your site URL. The **Auto-Installer** will automatically guide you through the setup.
+4.  **Login**: Enter your new credentials and start organizing your links!
 
 ---
 
 ## 🛠️ Tech Stack
 
 * **Backend**: PHP 8.1+
-* **Storage**: JSON (No-SQL)
+* **Storage**: JSON (Flat-file)
 * **Styling**: CSS3 (Grid & Flexbox)
 * **Icons**: FontAwesome 6.5.1
 
@@ -56,13 +53,13 @@ Installing Vlyx is incredibly simple:
 
 ## 🤝 Contributing
 
-Contributions are welcome! Whether it's a bug report, a feature request, or a pull request, feel free to join the development of Vlyx.
+Contributions are welcome! Feel free to open an issue or submit a pull request if you have ideas to improve Vlyx Hub.
 
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
+1.  Fork the Project.
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the Branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
 
 ---
 
