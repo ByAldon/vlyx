@@ -1,36 +1,30 @@
-VLYX HUB - SOURCE-AVAILABLE LIMITED LICENSE
+VLYX HUB - UNIVERSAL "AS-IS" LIMITED LICENSE
 Copyright (c) 2026 Aldon (ByAldon)
 
-1. PROPRIETARY NATURE
-Vlyx Hub is a proprietary software project. While the source code is public 
-for inspection, transparency, and security auditing, it is NOT licensed under 
-an Open Source Initiative (OSI) approved license.
+1. PERMITTED USE
+You are granted permission to use Vlyx Hub for:
+- Personal use.
+- Business/Commercial internal use.
+- Public hosting (providing Vlyx Hub as a service to others).
 
-2. PERMITTED USE & INSPECTION
-- You ARE permitted to download and use the software for private, personal use.
-- You ARE permitted to inspect and read the source code to verify security 
-  and functionality.
-- You ARE permitted to host the software on your own hardware for individual use.
+2. INSPECTION & AUDITING
+The source code is public and may be inspected for security auditing and 
+educational purposes.
 
 3. PROHIBITION OF MODIFICATION
-- You MAY NOT modify, alter, or adapt the source code for any reason. 
-- The software must be used "as is" as provided in this official repository.
+You may NOT modify, alter, or adapt the source code. The software must be 
+deployed exactly "as is" as provided in this official repository. 
 
-4. PROHIBITION OF DERIVATIVE WORKS & FORKS
-- You are strictly prohibited from creating "improved" versions, derivative 
-  works, or "better" versions of Vlyx Hub. 
-- Forks are permitted for the sole purpose of contributing bug reports or 
-  personal hosting, but redistributed forks with code changes are a 
-  violation of this license.
+4. PROHIBITION OF DERIVATIVE WORKS
+You are strictly prohibited from creating derivative works, "improved" versions, 
+or forks that include modifications to the original code. You may not 
+redistribute or publish any modified version of this software.
 
-5. DISTRIBUTION
-- Redistribution of the source code is only allowed in its original, 
-  unmodified state and must include this license file.
-- Any distribution must credit the original author (Aldon) and link to 
-  the official repository: https://github.com/ByAldon/vlyx
+5. DISTRIBUTION & ATTRIBUTION
+- Distribution is allowed only in the original, unmodified state.
+- You must retain all original branding (Vlyx Hub) and author credits (Aldon).
+- Public deployments must include a link to: https://github.com/ByAldon/vlyx
 
 6. OWNERSHIP
 Aldon remains the sole owner of all intellectual property, including the 
-source code, the "Vlyx" brand, and the visual design.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+visual design, branding, and software architecture.
