@@ -1,30 +1,20 @@
-VLYX HUB - UNIVERSAL "AS-IS" LIMITED LICENSE
+MIT License
 Copyright (c) 2026 Aldon (ByAldon)
 
-1. PERMITTED USE
-You are granted permission to use Vlyx Hub for:
-- Personal use.
-- Business/Commercial internal use.
-- Public hosting (providing Vlyx Hub as a service to others).
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-2. INSPECTION & AUDITING
-The source code is public and may be inspected for security auditing and 
-educational purposes.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-3. PROHIBITION OF MODIFICATION
-You may NOT modify, alter, or adapt the source code. The software must be 
-deployed exactly "as is" as provided in this official repository. 
-
-4. PROHIBITION OF DERIVATIVE WORKS
-You are strictly prohibited from creating derivative works, "improved" versions, 
-or forks that include modifications to the original code. You may not 
-redistribute or publish any modified version of this software.
-
-5. DISTRIBUTION & ATTRIBUTION
-- Distribution is allowed only in the original, unmodified state.
-- You must retain all original branding (Vlyx Hub) and author credits (Aldon).
-- Public deployments must include a link to: https://github.com/ByAldon/vlyx
-
-6. OWNERSHIP
-Aldon remains the sole owner of all intellectual property, including the 
-visual design, branding, and software architecture.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

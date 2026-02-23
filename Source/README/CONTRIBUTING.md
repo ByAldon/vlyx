@@ -1,15 +1,19 @@
 # Contributing to Vlyx Hub ⚡
 
-Vlyx Hub is a finished vision. While we provide the source code for transparency and public deployment, the project is not open for design changes or feature alterations.
+We love your help! Vlyx Hub is an open project, and we welcome all kinds of contributions—from bug fixes to new features.
 
-## ✅ What we welcome:
-* **Bug Reports**: If something is broken, let us know via the **Issues** tab.
-* **Security Audits**: Found a vulnerability? Please report it (see SECURITY.md).
+## 🌈 How Can You Help?
 
-## ❌ What we do NOT accept:
-* **Feature Requests**: We do not add new features based on external requests.
-* **Pull Requests**: Code changes or UI modifications will be closed without review.
-* **Modified Forks**: You may fork the repo for hosting purposes, but you may not publish a modified version of Vlyx.
+### 🛠️ Pull Requests
+1. **Fork** the repository.
+2. **Create a branch** for your feature/fix.
+3. **Submit a PR** with a clear description of what you've changed.
+
+### 🐞 Bug Reports & Suggestions
+Use the **Issues** tab to report problems or suggest new ideas. Even if it's a design change, we're open to seeing what the community wants!
+
+## 📜 Attribution Requirement
+If you use Vlyx Hub's code in your own project or host a modified version, you **must** include the original copyright notice and a link back to this repository.
 
 ---
-*Vlyx Hub • 2026*
+*Vlyx Hub • Built by Aldon • 2026*

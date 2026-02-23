@@ -1,23 +1,23 @@
 # ⚡ Vlyx Hub
 
 [![Version](https://img.shields.io/badge/version-1.1.5-00ddff.svg)](https://github.com/ByAldon/vlyx)
-[![License](https://img.shields.io/badge/license-Restricted--Use-yellow.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![PHP](https://img.shields.io/badge/PHP-8.1+-777bb4.svg)](https://php.net)
 
-**Vlyx Hub** is a high-performance, self-hosted bookmark manager. Built for speed and a locked-in aesthetic, it is now available for personal, commercial, and public hosting use—exactly as the creator intended.
+**Vlyx Hub** is a lightweight, self-hosted bookmark manager designed for speed and minimalism. It provides a sleek, dark-themed dashboard to organize your most important links.
 
-> [!IMPORTANT]
-> **"As-Is" Usage**: Vlyx Hub can be used by anyone, including businesses and public hosts. However, modification of the source code or creating derivative "improved" versions is strictly prohibited. The software must be deployed in its original state.
+> [!NOTE]
+> **Open Source & Attribution**: This project is now fully open-source under the MIT license. You are free to use, modify, and redistribute it, provided that you give credit to the original author (Aldon) and link back to this repository.
 
 ---
 
 ## ✨ Features
 
-* **🚀 Universal Deployment**: Suitable for individuals, internal company use, or public link-hosting services.
-* **⚡ Visionary Interface**: A modern, responsive dark-mode UI that remains consistent across all deployments.
-* **🛠️ Guided Setup**: A foolproof installation wizard that handles database generation automatically.
-* **📂 Multi-User Architecture**: Robust support for multiple accounts, each with its own secure link grid.
-* **🔒 Secure & Transparent**: Source code is open for auditing. Built-in password hashing and protected JSON storage.
+* **⚡ Sublime Interface**: A modern, responsive dark-mode UI.
+* **🛠️ Guided Setup**: A foolproof, step-by-step installation wizard.
+* **📂 Multi-User Support**: Each user gets their own personal space and link grid.
+* **🚀 Update Checker**: Real-time notifications for official updates.
+* **🔒 Privacy First**: Flat-file JSON database. No SQL required.
 
 ---
 
@@ -29,19 +29,18 @@
 
 ---
 
-## 🚀 Deployment
+## 🤝 Contributing & Forking
 
-1.  **Upload**: Place the unmodified source files on any PHP 8.1+ server.
-2.  **Initialize**: Navigate to your URL. The **Auto-Installer** will set up the environment.
-3.  **Scale**: Whether for 1 or 1,000 users, Vlyx Hub remains fast and reliable.
+Vlyx Hub thrives on community input! 
+- **Forks**: Feel free to fork this project and make it your own. 
+- **Improvements**: If you've built something cool on top of Vlyx, we'd love to see it.
+- **Rules**: Just keep the original license and attribution to Aldon intact.
 
 ---
 
-## 📜 License & Terms
+## 📜 License
 
-This project is licensed under the **Universal "As-Is" Limited License**. 
-- **Allowed**: Personal use, Business use, Public hosting.
-- **Forbidden**: Code modification, redistributing modified versions, creating derivative "better" versions.
+Distributed under the **MIT License**. See `LICENSE` for more information.
 
 ---
 
