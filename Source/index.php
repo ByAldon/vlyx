@@ -2,7 +2,7 @@
 session_start();
 $version = "1.1.5";
 $repo_url = "https://github.com/ByAldon/vlyx";
-$version_check_url = "https://raw.githubusercontent.com/ByAldon/vlyx/main/version.txt";
+$version_check_url = "https://raw.githubusercontent.com/ByAldon/vlyx/main/Source/version.txt";
 
 // --- AUTO-INSTALLER LOGIC ---
 if (!is_dir('users')) { mkdir('users', 0777, true); }
@@ -20,7 +20,6 @@ if (!isset($_SESSION['latest_version'])) {
 }
 $is_outdated = version_compare($_SESSION['latest_version'], $version, '>');
 
-// Redirect logic
 if (empty($userData)) { header("Location: admin.php"); exit; }
 if (isset($_GET['logout'])) { session_destroy(); header("Location: login.php"); exit; }
 if (!isset($_SESSION['user'])) { header("Location: login.php"); exit; }
@@ -29,6 +28,7 @@ $user = $_SESSION['user'];
 $role = $_SESSION['role'] ?? 'user';
 $userLinksFile = "users/" . $user . ".json";
 
+// Form Processing
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['add_link'])) {
         $links = file_exists($userLinksFile) ? json_decode(file_get_contents($userLinksFile), true) : [];
@@ -69,25 +69,31 @@ $links = file_exists($userLinksFile) ? json_decode(file_get_contents($userLinksF
         .brand-text { font-size: 2.8rem; font-weight: bold; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 30px; width: 100%; max-width: 1000px; padding: 0 20px 140px; box-sizing: border-box; }
         .bookmark-wrapper { position: relative; text-align: center; background: var(--card); padding: 25px; border-radius: 22px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: 0.3s; }
+        .bookmark-wrapper:hover { transform: translateY(-8px); }
         .icon-box { width: 60px; height: 60px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.25); border-radius: 15px; }
         .icon-box img { width: 36px; height: 36px; object-fit: contain; }
         .del-btn { position: absolute; top: 12px; right: 12px; background: none; border: none; color: #ff4444; cursor: pointer; opacity: 0.3; transition: 0.2s; }
         .admin-bar { position: fixed; bottom: 0; width: 100%; background: var(--dark-bar); border-top: 1px solid rgba(0, 221, 255, 0.3); z-index: 100; padding: 12px 30px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; }
         .admin-form { display: flex; align-items: center; gap: 12px; }
-        input { padding: 10px 15px; border-radius: 8px; border: 1px solid #333; background: #1e1e26; color: white; box-sizing: border-box; }
-        .nav-link { color: var(--accent); text-decoration: none; font-weight: bold; margin-left: 15px; cursor: pointer; font-size: 0.9rem; }
+        input { padding: 10px 15px; border-radius: 8px; border: 1px solid #333; background: #1e1e26; color: white; }
+        .nav-link { color: var(--accent); text-decoration: none; font-weight: bold; margin-left: 15px; cursor: pointer; font-size: 0.9rem; border: none; background: none; }
+        .modal { display: none; position: fixed; z-index: 200; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
+        .modal-content { background: var(--card); margin: 10% auto; padding: 40px; border-radius: 25px; width: 90%; max-width: 450px; border: 1px solid rgba(0,221,255,0.2); }
+        .btn-save { background: var(--accent); color: #1e1e26; border: none; padding: 12px; border-radius: 10px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 15px; }
         .bar-info { color: #444; font-size: 0.75rem; font-weight: bold; text-align: right; line-height: 1.2; }
     </style>
 </head>
 <body>
+
     <div class="logo-container">
         <div class="brand-logo"><i class="fa-solid fa-bolt-lightning"></i></div>
         <div class="brand-text"><span><?= htmlspecialchars($user) ?>'s</span> Vlyx</div>
     </div>
+
     <div class="grid">
         <?php foreach ($links as $index => $link): ?>
             <div class="bookmark-wrapper">
-                <form method="POST"><input type="hidden" name="index" value="<?= $index ?>">
+                <form method="POST" style="margin:0;"><input type="hidden" name="index" value="<?= $index ?>">
                     <button type="submit" name="delete_link" class="del-btn" onclick="return confirm('Delete?')"><i class="fa-solid fa-trash-can"></i></button>
                 </form>
                 <a href="<?= htmlspecialchars($link['url']) ?>" style="text-decoration:none; color:inherit;" target="_blank">
@@ -97,6 +103,26 @@ $links = file_exists($userLinksFile) ? json_decode(file_get_contents($userLinksF
             </div>
         <?php endforeach; ?>
     </div>
+
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <h2 style="color:var(--accent); margin-top:0;">User Settings</h2>
+            <form method="POST">
+                <label style="display:block; margin: 10px 0 5px; font-size: 0.8rem; color: #888;">Username</label>
+                <input type="text" name="new_username" value="<?= htmlspecialchars($user) ?>" required style="width:100%; box-sizing:border-box;">
+                
+                <label style="display:block; margin: 15px 0 5px; font-size: 0.8rem; color: #888;">Email Address</label>
+                <input type="email" name="email" value="<?= htmlspecialchars($userData[$user]['email'] ?? '') ?>" style="width:100%; box-sizing:border-box;">
+                
+                <label style="display:block; margin: 15px 0 5px; font-size: 0.8rem; color: #888;">New Password (leave blank to keep current)</label>
+                <input type="password" name="password" style="width:100%; box-sizing:border-box;">
+                
+                <button type="submit" name="update_profile" class="btn-save">Save Changes</button>
+                <button type="button" onclick="closeModal()" style="background:transparent; border:none; color:#666; width:100%; margin-top:10px; cursor:pointer;">Cancel</button>
+            </form>
+        </div>
+    </div>
+
     <div class="admin-bar">
         <div class="admin-form">
             <form method="POST" style="display:flex; gap:10px;">
@@ -104,6 +130,7 @@ $links = file_exists($userLinksFile) ? json_decode(file_get_contents($userLinksF
                 <input type="url" name="url" placeholder="URL" required style="width: 200px;">
                 <button type="submit" name="add_link" style="background:var(--accent); border:none; padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer; color: #1e1e26;">Add Link</button>
             </form>
+            <button onclick="openModal()" class="nav-link"><i class="fa-solid fa-user-gear"></i> Settings</button>
             <?php if ($role === 'admin'): ?><a href="admin.php" class="nav-link">Admin</a><?php endif; ?>
             <a href="?logout=1" class="nav-link" style="color:#666;"><i class="fa-solid fa-power-off"></i></a>
         </div>
@@ -116,5 +143,14 @@ $links = file_exists($userLinksFile) ? json_decode(file_get_contents($userLinksF
             <?php endif; ?>
         </div>
     </div>
+
+    <script>
+        function openModal() { document.getElementById('settingsModal').style.display = 'block'; }
+        function closeModal() { document.getElementById('settingsModal').style.display = 'none'; }
+        window.onclick = function(event) {
+            let modal = document.getElementById('settingsModal');
+            if (event.target == modal) closeModal();
+        }
+    </script>
 </body>
 </html>
