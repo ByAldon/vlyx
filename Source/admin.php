@@ -1,6 +1,6 @@
 <?php
 session_start();
-$version = "1.1.5";
+$version = "1.1.6";
 
 // --- AUTO-INSTALLER & ERROR PREVENTION ---
 if (!is_dir('users')) { mkdir('users', 0777, true); }
@@ -10,10 +10,8 @@ if (!file_exists('version.txt')) { file_put_contents('version.txt', $version); }
 $usersFile = 'users.json';
 $userData = json_decode(file_get_contents($usersFile), true) ?: [];
 
-// Fixed: Initialize $step immediately to prevent warnings
 $step = $_GET['step'] ?? (empty($userData) ? 'welcome' : 'manage');
 
-// Security check for existing systems
 if (!empty($userData) && (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin')) {
     header("Location: login.php"); exit;
 }

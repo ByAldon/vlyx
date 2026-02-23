@@ -8,8 +8,8 @@ Currently, only the latest stable version of Vlyx Hub receives security updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| v1.1.5  | :white_check_mark: |
-| < 1.1.5 | :x:                |
+| v1.1.6  | :white_check_mark: |
+| < 1.1.6 | :x:                |
 
 ## Reporting a Vulnerability
 
@@ -18,7 +18,7 @@ If you discover a security vulnerability within Vlyx Hub, please **do not** open
 1.  **Private Report**: Send a detailed description of the vulnerability to the maintainer via GitHub Private Reporting (if enabled) or via email (see profile).
 2.  **Details**: Include steps to reproduce the issue, the potential impact, and any suggested fixes.
 3.  **Response**: You will receive an acknowledgment within 48–72 hours.
-4.  **Resolution**: Once a fix is developed, a new official release (e.g., v1.1.6) will be published.
+4.  **Resolution**: Once a fix is developed, a new official release (e.g., v1.1.7) will be published.
 
 ## Our Security Standards
 
@@ -35,4 +35,4 @@ Since Vlyx Hub is a self-hosted tool, users are responsible for securing their o
 * Regularly checking for official updates via the built-in update checker.
 
 ---
-*Vlyx Hub • v1.1.5 • Security Policy*
+*Vlyx Hub • v1.1.6 • Security Policy*

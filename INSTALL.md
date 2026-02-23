@@ -52,4 +52,4 @@ After setup, you will be redirected to the **Unlock Portal**. Log in with your n
 * **HTTPS**: It is strongly recommended to run Vlyx over a secure HTTPS connection to protect your login data.
 
 ---
-*Vlyx Hub • v1.1.5 • Built by Aldon • 2026*
+*Vlyx Hub • v1.1.6 • Built by Aldon • 2026*
