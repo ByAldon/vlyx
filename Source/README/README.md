@@ -22,13 +22,15 @@
 
 ---
 
-## 📸 Screenshots
+## 📸 Preview
 
-*(Tip: Add your own screenshots from the `Demo` folder here to make it visual!)*
-
-| Login Portal | Dashboard | User Management |
+| Login Portal | Main Dashboard | Settings Modal |
 | :--- | :--- | :--- |
-| ![Login](Demo/login.png) | ![Dashboard](Demo/dashboard.png) | ![Admin](Demo/admin.png) |
+| ![Login](Demo/Login.png) | ![Dashboard](Demo/Dashboard.png) | ![Settings](Demo/Settings.png) |
+
+| Setup Wizard | User Management | Recovery |
+| :--- | :--- | :--- |
+| ![Setup](Demo/Admin%20Management.png) | ![Management](Demo/User%20Management.png) | ![Forgot](Demo/Forgot%20Password.png) |
 
 ---
 
@@ -36,8 +38,8 @@
 
 Installing Vlyx is incredibly simple:
 
-1.  **Download/Clone**: Upload the files to your PHP-enabled web server.
-2.  **Permissions**: Ensure the root folder is writable.
+1.  **Download**: Upload the files to your PHP-enabled web server.
+2.  **Permissions**: Ensure the root folder is writable so the system can create the necessary files.
 3.  **Run**: Navigate to your site. The **Auto-Installer** will guide you through creating your first Admin account.
 4.  **Login**: Enter your credentials and start adding links!
 
