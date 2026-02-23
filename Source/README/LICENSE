@@ -1,11 +1,36 @@
-Copyright (c) 2026 Aldon
+VLYX HUB - SOURCE-AVAILABLE LIMITED LICENSE
+Copyright (c) 2026 Aldon (ByAldon)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. PROPRIETARY NATURE
+Vlyx Hub is a proprietary software project. While the source code is public 
+for inspection, transparency, and security auditing, it is NOT licensed under 
+an Open Source Initiative (OSI) approved license.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+2. PERMITTED USE & INSPECTION
+- You ARE permitted to download and use the software for private, personal use.
+- You ARE permitted to inspect and read the source code to verify security 
+  and functionality.
+- You ARE permitted to host the software on your own hardware for individual use.
+
+3. PROHIBITION OF MODIFICATION
+- You MAY NOT modify, alter, or adapt the source code for any reason. 
+- The software must be used "as is" as provided in this official repository.
+
+4. PROHIBITION OF DERIVATIVE WORKS & FORKS
+- You are strictly prohibited from creating "improved" versions, derivative 
+  works, or "better" versions of Vlyx Hub. 
+- Forks are permitted for the sole purpose of contributing bug reports or 
+  personal hosting, but redistributed forks with code changes are a 
+  violation of this license.
+
+5. DISTRIBUTION
+- Redistribution of the source code is only allowed in its original, 
+  unmodified state and must include this license file.
+- Any distribution must credit the original author (Aldon) and link to 
+  the official repository: https://github.com/ByAldon/vlyx
+
+6. OWNERSHIP
+Aldon remains the sole owner of all intellectual property, including the 
+source code, the "Vlyx" brand, and the visual design.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
