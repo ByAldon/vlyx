@@ -1,21 +1,23 @@
 # ⚡ Vlyx Hub
 
 [![Version](https://img.shields.io/badge/version-1.1.5-00ddff.svg)](https://github.com/ByAldon/vlyx)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-Restricted-red.svg)](LICENSE)
 [![PHP](https://img.shields.io/badge/PHP-8.1+-777bb4.svg)](https://php.net)
 
-**Vlyx Hub** is a lightweight, self-hosted bookmark manager designed for speed and minimalism. It provides a sleek, dark-themed dashboard to organize your most important links without the bloat of traditional managers.
+**Vlyx Hub** is a lightweight, self-hosted bookmark manager designed for speed and minimalism. It provides a sleek, dark-themed dashboard to organize your most important links exactly as intended by the creator.
 
-> [!TIP]
-> **Privacy First**: Vlyx uses a flat-file JSON database. No SQL setup is required, and your data stays entirely under your control.
+> [!IMPORTANT]
+> **Source Available & Restricted Usage**: While the source code is public for transparency and auditing, Vlyx Hub is NOT a traditional open-source project. Modification of the code and the creation of derivative versions or "improved" forks are strictly prohibited under the project's license.
 
 ---
 
-## ✨ New in v1.1.5
+## ✨ Features
 
-* **Auto Update Checker**: Automatically alerts users if a new version is available on GitHub.
-* **Silent Mode**: Update notifications are non-intrusive and do not block system usage.
-* **Foolproof Setup**: The first user is automatically granted Administrator rights during initialization.
+* **⚡ Visionary Interface**: A modern, responsive dark-mode UI with a unique, locked-in design.
+* **🛠️ Guided Setup**: A foolproof, step-by-step installation wizard that ensures a perfect initial configuration.
+* **📂 Privacy-Centric**: Uses a flat-file JSON database. No SQL setup required, keeping your data entirely under your control.
+* **🚀 Update Checker**: Real-time dashboard notifications that alert you when an official update is available.
+* **🔒 Secure Core**: Features password hashing and protected data directories to keep your links safe.
 
 ---
 
@@ -33,12 +35,10 @@
 
 ## 🚀 Quick Start
 
-Installing Vlyx is incredibly simple:
-
-1.  **Download**: Upload the source files to your PHP-enabled web server.
-2.  **Permissions**: Ensure the root folder is writable so the system can generate the necessary files.
-3.  **Launch**: Navigate to your site URL. The **Auto-Installer** will automatically guide you through the setup.
-4.  **Login**: Enter your new credentials and start organizing your links!
+1.  **Download**: Upload the unmodified source files to your PHP 8.1+ server.
+2.  **Permissions**: Ensure the root folder is writable so the system can generate its database files.
+3.  **Launch**: Navigate to your URL. The **Auto-Installer** will guide you through the setup.
+4.  **Enjoy**: Log in and start using the hub exactly as it was designed.
 
 ---
 
@@ -46,27 +46,24 @@ Installing Vlyx is incredibly simple:
 
 * **Backend**: PHP 8.1+
 * **Storage**: JSON (Flat-file)
-* **Styling**: CSS3 (Grid & Flexbox)
 * **Icons**: FontAwesome 6.5.1
 
 ---
 
-## 🤝 Contributing
+## 🤝 Rules of Engagement
 
-Contributions are welcome! Feel free to open an issue or submit a pull request if you have ideas to improve Vlyx Hub.
-
-1.  Fork the Project.
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`).
-4.  Push to the Branch (`git push origin feature/AmazingFeature`).
-5.  Open a Pull Request.
+To protect the integrity and vision of Vlyx Hub, we have strict rules for interaction:
+* **Inspecting Code**: Everyone is encouraged to review the code for security and transparency.
+* **Bug Reports**: We welcome technical bug reports through the Issues tab.
+* **No Modifications**: Pull Requests containing new features, UI changes, or code alterations will be closed.
+* **No Derivatives**: You may not redistribute or publish modified versions of Vlyx Hub.
 
 ---
 
 ## 📜 License
 
-Distributed under the **MIT License**. See `LICENSE` for more information.
+This software is distributed under a **Limited Personal Use License**. Usage is permitted for personal purposes, but modification and redistribution of modified versions are prohibited. See `LICENSE` for the full text.
 
 ---
 
-Built with ⚡ by **Aldon** • 2026 • [GitHub Repository](https://github.com/ByAldon/vlyx)
+Built with ⚡ by **Aldon** • 2026 • [Official Repository](https://github.com/ByAldon/vlyx)
