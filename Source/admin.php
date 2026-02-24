@@ -1,6 +1,6 @@
 <?php
 session_start();
-$version = "1.1.6";
+$version = "1.1.7";
 
 // --- AUTO-INSTALLER & ERROR PREVENTION ---
 if (!is_dir('users')) { mkdir('users', 0777, true); }
