@@ -195,11 +195,9 @@ $links = file_exists($userLinksFile) ? json_decode(file_get_contents($userLinksF
             <a href="?logout=1" class="nav-link" style="color:#666;"><i class="fa-solid fa-power-off"></i></a>
         </div>
         <div class="bar-info">
-            Vlyx Hub v<?= $version ?> &bull; GitHub<br>
+            Vlyx Hub v<?= $version ?> &bull; <a href="<?= $repo_url ?>" target="_blank" style="color: inherit; text-decoration: none;">GitHub</a><br>
             <?php if ($is_outdated): ?>
                 <a href="<?= $repo_url ?>" target="_blank" style="color: var(--update); text-decoration: none;"><i class="fa-solid fa-circle-arrow-up"></i> Update: v<?= htmlspecialchars($_SESSION['latest_version']) ?></a>
-            <?php else: ?>
-                <span style="color: #333;">System up to date</span>
             <?php endif; ?>
         </div>
     </div>
