@@ -16,7 +16,7 @@ If you are updating Vlyx Hub to a newer version, please read this carefully:
 >
 > These files act as your **database**. Deleting them will **PERMANENTLY RESET** the entire system, and all user data will be lost.
 
-To update, only replace the `.php` files and the `README.md`/`INSTALL.md` files.
+To update, only replace the `.php` files and the documentation files.
 
 ---
 
@@ -25,22 +25,22 @@ To update, only replace the `.php` files and the `README.md`/`INSTALL.md` files.
 Vlyx Hub is designed to be "Self-Healing." You do not need to create database files manually.
 
 ### 1. Requirements
-* **PHP**: Version 8.1 or higher
-* **Web Server**: Apache (recommended for `.htaccess` support) or Nginx
+* **PHP**: Version 8.1 or higher.
+* **Web Server**: Apache (recommended for `.htaccess` support) or Nginx.
 * **Permissions**: The root directory must be writable by the web server.
 
 ### 2. Upload
 Upload all source files to your web server's public directory.
 
 ### 3. Automatic Setup
-1.  Navigate to your site URL in a web browser.
-2.  The **Auto-Installer** will detect a fresh environment and create the necessary `users/` folder and `users.json` database automatically.
-3.  The **Setup Wizard** will appear to guide you through the initial configuration.
+1. Navigate to your site URL in a web browser.
+2. The **Auto-Installer** will detect a fresh environment and create the necessary `users/` folder and `users.json` database automatically.
+3. The **Setup Wizard** will appear to guide you through the initial configuration.
 
 ### 4. Create Admin Account
-1.  Read the welcome message and click **Next**.
-2.  Enter a username, an optional email (highly recommended for recovery), and a strong password.
-3.  The first account created is automatically granted **Administrator** privileges.
+1. Read the welcome message and click **Next**.
+2. Enter a username, an optional email (highly recommended for recovery), and a strong password.
+3. The first account created is automatically granted **Administrator** privileges.
 
 ### 5. Login
 After setup, you will be redirected to the **Unlock Portal**. Log in with your new credentials to start adding links.
@@ -48,8 +48,8 @@ After setup, you will be redirected to the **Unlock Portal**. Log in with your n
 ---
 
 ## 🔒 Security Post-Install
-* **`.htaccess`**: Vlyx includes a `.htaccess` file that prevents direct browser access to your JSON database files. Ensure your server respects this file.
-* **HTTPS**: It is strongly recommended to run Vlyx over a secure HTTPS connection to protect your login data.
+* **`.htaccess`**: Vlyx includes a `.htaccess` file that prevents direct browser access to your JSON database files.
+* **HTTPS**: It is strongly recommended to run Vlyx over a secure HTTPS connection.
 
 ---
-*Vlyx Hub • v1.1.6 • Built by Aldon • 2026*
+*Vlyx Hub • v1.1.7 • Built by Aldon • 2026*

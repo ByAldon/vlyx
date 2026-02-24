@@ -16,4 +16,4 @@ Use the **Issues** tab to report problems or suggest new ideas. Even if it's a d
 If you use Vlyx Hub's code in your own project or host a modified version, you **must** include the original copyright notice and a link back to this repository.
 
 ---
-*Vlyx Hub • Built by Aldon • 2026*
+*Vlyx Hub • v1.1.7 • Built by Aldon • 2026*

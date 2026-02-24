@@ -25,9 +25,9 @@ Vlyx Hub is a lightweight, self-hosted bookmark management system designed for s
 * Web server (Apache recommended for `.htaccess` support).
 
 ### Installation
-1.  Upload the contents of the `Source/` directory to your web server.
-2.  Ensure the root directory is writable.
-3.  Visit your URL and follow the **Setup Wizard** to create your primary administrator account.
+1. Upload the contents of the `Source/` directory to your web server.
+2. Ensure the root directory is writable.
+3. Visit your URL and follow the **Setup Wizard** to create your primary administrator account.
 
 For detailed instructions, see **[INSTALL.md](INSTALL.md)**.
 
