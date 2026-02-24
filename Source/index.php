@@ -1,6 +1,6 @@
 <?php
 session_start();
-$version = "1.1.6";
+$version = "1.1.7";
 $repo_url = "https://github.com/ByAldon/vlyx";
 $version_check_url = "https://raw.githubusercontent.com/ByAldon/vlyx/main/Source/version.txt";
 
