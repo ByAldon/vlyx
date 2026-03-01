@@ -1,4 +1,4 @@
-| This Project is discontinued for now. Development has been paused |
+| This Project is discontinued for now. Development has been paused and no new updates are planned |
 
 # ⚡ Vlyx Hub
 
