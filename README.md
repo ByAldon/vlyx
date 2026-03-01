@@ -1,3 +1,5 @@
+| This Project is discontinued for now. Development has been paused |
+
 # ⚡ Vlyx Hub
 
 Vlyx Hub is a lightweight, self-hosted bookmark management system designed for speed, simplicity, and privacy. Built with PHP and powered by a JSON flat-file database, it provides a centralized dashboard for all your essential links without the need for a complex SQL setup.
